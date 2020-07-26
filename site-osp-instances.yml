@@ -1,3 +1,4 @@
 - hosts: workstation
+  become: no
   roles:
     - osp-servers
