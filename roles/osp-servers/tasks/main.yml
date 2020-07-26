@@ -6,6 +6,7 @@
   block:
     - name: Provision OSP Instances
       os_server:
+        cloud: openstack
         name: "{{item.value.name}}"
         state: "{{item.value.state}}"
         image: "{{item.value.image}}"
@@ -19,6 +20,7 @@
     
     - name: Allocate FIPs
       os_floating_ip:
+        cloud: openstack
         state: "{{item.value.state}}"
         server: "{{item.value.name}}"
         network: "{{item.value.ext_network}}"
@@ -32,6 +34,7 @@
         
     - name: Clean up failed instances
       os_server: 
+        cloud: openstack
         name: "{{item.value.name}}"
         state: absent
       loop: "{{osp_servers | dict2items}}"
