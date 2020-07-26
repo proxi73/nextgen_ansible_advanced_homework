@@ -1,4 +1,3 @@
-
 - hosts: localhost
   vars:
     OSP_GUID: "{{ lookup('env','OSP_GUID') }}"
@@ -18,7 +17,3 @@
     - osp-setup
 
 - import_playbook: site-install-isolated-node.yaml
-
-
-
-
