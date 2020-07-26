@@ -6,7 +6,7 @@
   tasks:
   - name: Get OpenStack Instances
     os_server_info:
-      cloud: devstack
+      cloud: openstack
       server: frontend*
       filters:
         vm_state: active
