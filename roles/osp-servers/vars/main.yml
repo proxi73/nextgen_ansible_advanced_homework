@@ -1,5 +1,6 @@
 ---
-# vars file for osp.servers
+# vars file for osp-servers role
+
 osp_servers:
   frontend:
     name: frontend
@@ -8,6 +9,10 @@ osp_servers:
     key_name: ansible_ssh
     flavor: m1.medium
     security_group: frontend
+    net_interface: 
+      - net-name: int_network
+    int_network: int_network
+    ext_network: ext_network
     meta:
       - { group: frontends, deployment_name: QA}
   app1:
@@ -17,6 +22,10 @@ osp_servers:
     key_name: ansible_ssh
     flavor: m1.medium
     security_group: apps
+    net_interface: 
+      - net-name: int_network
+    int_network: int_network
+    ext_network: ext_network
     meta:
       - { group: apps, deployment_name: QA}
   app2:
@@ -26,6 +35,10 @@ osp_servers:
     key_name: ansible_ssh
     flavor: m1.medium
     security_group: apps
+    net_interface: 
+      - net-name: int_network
+    int_network: int_network
+    ext_network: ext_network
     meta:
       - { group: apps, deployment_name: QA}
   db:
@@ -35,5 +48,23 @@ osp_servers:
     key_name: ansible_ssh
     flavor: m1.medium
     security_group: db
+    net_interface: 
+      - net-name: int_network
+    int_network: int_network
+    ext_network: ext_network
     meta:
       - { group: appdbs, deployment_name: QA}
+
+global_userdata: |-
+    #!/bin/bash
+    mkdir -p /home/cloud-user/.ssh/
+    touch /home/cloud-user/.ssh/authorized_keys 
+    echo '{{osp_ssh_key}}' >> /home/cloud-user/.ssh/authorized_keys
+    echo '{{lab_ssh_key}}' >> /home/cloud-user/.ssh/authorized_keys
+    chmod 600 /home/cloud-user/.ssh/authorized_keys
+    curl -o /etc/yum.repos.d/internal.repo http://www.opentlc.com/download/ansible_bootcamp/repo/internal.repo 
+
+osp_ssh_key: /root/.ssh/openstack.pub
+lab_ssh_key: /root/.ssh/28d7key.pub
+provided_keys1: lookup('file', "{{lab_ssh_key}}")
+provided_keys2: lookup('file', "{{osp_ssh_key}}")
