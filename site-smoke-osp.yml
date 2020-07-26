@@ -1,11 +1,22 @@
 - hosts: workstation
   gather_facts: false
+  pre_tasks: 
+  - name: Include Common Vars
+    include_vars: vars/common-vars.yml
   tasks:
-  - name: OpenStack servers
-  - name: Curl website
+  - name: Get OpenStack Instances
+    os_server_info:
+      cloud: devstack
+      server: frontend*
+      filters:
+        vm_state: active
+    register: osp_frontends
 
-  - name: Fail if 'Ansible has done its job' is not in the page content
-    fail:
-    when: "'Ansible has done its job' not in webpage.results[0].content"
-    tags:
-      - osp.smoke
+  - name: Frontend HTTP Request
+    uri:
+      url: "{{ frontend_protocol }}://{{ item.public_v4 }}"
+      return_content: yes
+      status_code: 200
+    loop: "{{ osp_frontends.openstack_servers }}"
+    register: webpage
+    failed_when: apps_validation_content not in webpage.content
