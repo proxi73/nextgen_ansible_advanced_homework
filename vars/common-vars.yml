@@ -1,0 +1,4 @@
+apps_port: 8080
+frontend_port: 80
+frontend_protocol: http
+apps_validation_content: "Ansible has done a good job"
