@@ -1,15 +1,16 @@
 ---
 - name: Install and config HAProxy
   block:
+
   - name: Install HAProxy
-    package:
-      name: {{ payload }}
+    yum:
+      name: "{{ payload }}"
       state: latest
     notify: restart haproxy
 
   - name: Start and enable HAProxy
     service: 
-      name: {{ payload }}
+      name: "{{ payload }}"
       state: started
       enabled: yes
   tags:
