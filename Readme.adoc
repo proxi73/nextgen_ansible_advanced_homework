@@ -10,7 +10,7 @@
 |===
 | Files or dir | Purpose
 | app-tier | Install application server role
-| bihealth.postgres_server | Install postgresql server for database role
+| geerlingguy.postgresql | Install postgresql server for database role
 | lb-tier  | Install HA proxy role
 | base-config | Setup yum repo and base packages role
 | setup-workstation | Setup workstation, create network, ssh keypair, security group etc. role 
