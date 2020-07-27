@@ -1,5 +1,5 @@
 ---
 - name: restart haproxy
   service:
-    name: {{ payload }}
+    name: "{{ payload }}"
     state: restarted
