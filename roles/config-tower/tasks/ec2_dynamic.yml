@@ -2,7 +2,6 @@
   command: |
     tower-cli inventory create -n "{{ec2_dynamic_inventory}}" --organization "{{org_name}}"
 
-
 - name: Create groups needed to deploy app
   command: |
     tower-cli group create -n "{{ item }}" --inventory "{{ec2_dynamic_inventory}}" 
