@@ -14,7 +14,7 @@
 
 . To get started you will need to fork this git Repository on bastion host and configure Ansible Tower Environment created for you
 
-. From the cloned repo copy labrc file in your home dir and edit to setup env variables according to lab.
+. On Bastion host, from the cloned repo copy labrc file in your home dir and edit to setup env variables according to lab.
 
 . Copy your OPENTLC private key to the Ansible Advanced - Homework bastion host under the root user’s home directory
 
