@@ -1,9 +1,30 @@
-==== Ansible Tower Config
+== Ansible Tower Homework Lab
 
+=== Prepare Labs
 
-* From the cloned repo run `site-config-tower.yml` playbook to create job templates and workflow template.
+* Order Ansible Advanced - Homework
+** Services -> Catalogs -> All Services -> OPENTLC Automation -> Ansible Advanced - Homework
 
+* Order Ansible-Advanced-OSP16
+** Services -> Catalogs -> All Services -> OPENTLC Automation -> Ansible-Advanced-OSP16
 
+* Wait for the envs to be up and check your email for instruction on how to connect to the environments
+
+=== Prepare Environments
+
+. To get started you will need to fork this git Repository on bastion host and configure Ansible Tower Environment created for you
+
+. From the cloned repo copy labrc file in your home dir and edit to setup env variables according to lab.
+
+. Copy your OPENTLC private key to the Ansible Advanced - Homework bastion host under the root user’s home directory
+
+=== Playbook for Ansible Tower Homework Lab
+
+. Run the site-setup-prereqs.yaml playbook to provision on RHOSP the networks, flavor, security groups, and SSH keys
+
+. Run the site-config-tower.yml playbook to create the job templates and workflow template
+
+. Run the cicd_workflow workflow template to complete the homework
 
 .List of Playbooks
 [%header,cols=2*]
@@ -16,12 +37,14 @@
 | setup-workstation | Setup workstation, create network, ssh keypair, security group etc. role 
 | osp-servers | Provision OSP Instances role
 | osp-instance-delete | Delete OSP Instances role
-| osp-facts | Genrate in-memory inventory for OSP instances role
-| roles/config-tower/vars/main.yml | Very important file to review. All the variable values are set there. Please do not make any changes in the file
+| osp-facts | Generate in-memory inventory for OSP instances role
+| osp-setup | Setup OSP environment
+| roles/config-tower/vars/main.yml | important file to review. All the variable values are set there. Please do not make any changes in the file
 | config-tower | Role to configure ansible tower job templates and workflow
 | aws_creds.yml | Fetch GUIDkey.pem from bastion of Three tier application env and create machine credential to connect to AWS instances
 | aws_provision.yml | Use `order_svc.sh` script to provision env
 | aws_status_check.yml | Check aws instances are up or not
+| site-setup-workstation.yml | Playbook to setup workstation
 | site-3tier-app.yml | Playbook to deploy three tier app
 | site-install-isolated-node.yml | Playbook to install isolated node
 | site-config-tower.yml | Playbook to call role `config-tower`
@@ -36,4 +59,5 @@
 | roles/config-tower/tasks/pre-config-tower.yml | Any pre config tasks needed
 | roles/config-tower/tasks/workflow_template.yml | genrate workflow from `workflow.yml` file
 | roles/config-tower/tasks/post-config-tower.yml | any post config jobs
+| vars/common-vars.yml | common vars for three tier app
 |===
