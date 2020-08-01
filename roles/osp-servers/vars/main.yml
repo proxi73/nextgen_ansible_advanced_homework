@@ -54,17 +54,3 @@ osp_servers:
     ext_network: ext_network
     meta:
       - { group: appdbs, deployment_name: QA}
-
-global_userdata: |-
-    #!/bin/bash
-    mkdir -p /home/cloud-user/.ssh/
-    touch /home/cloud-user/.ssh/authorized_keys 
-    echo '{{osp_ssh_key}}' >> /home/cloud-user/.ssh/authorized_keys
-    echo '{{lab_ssh_key}}' >> /home/cloud-user/.ssh/authorized_keys
-    chmod 600 /home/cloud-user/.ssh/authorized_keys
-    curl -o /etc/yum.repos.d/internal.repo http://www.opentlc.com/download/ansible_bootcamp/repo/internal.repo 
-
-osp_ssh_key: /root/.ssh/openstack.pub
-lab_ssh_key: /root/.ssh/28d7key.pub
-provided_keys1: lookup('file', "{{lab_ssh_key}}")
-provided_keys2: lookup('file', "{{osp_ssh_key}}")
